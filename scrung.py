@@ -1,0 +1,42 @@
+import os
+
+def extract_eporner_title(title):
+    piece1 = title.split("] ")[1]
+    piece2 = piece1.split(" (")[0]
+    return piece2 + ".mp4"
+
+def extract_javahihi_title(title):
+    return title.split(" - ")[2]
+ 
+def purge_words(title):
+    new_title = title.replace("ommy", "ilf")
+    new_title = new_title.replace("Mom", "Milf")
+    new_title = new_title.replace("Bitch", "Lady")
+    return new_title
+
+def clean_title(title):
+    new_title = title
+
+    if new_title.find("EPORNER") != -1:
+        new_title = extract_eporner_title(new_title) 
+
+    if new_title.find("JavHiHi") != -1:
+        new_title = extract_javahihi_title(new_title)
+
+    new_title = purge_words(new_title)
+    return new_title
+
+def is_media(title):
+    return title.find(".mp4") != -1
+        
+for file_name in os.listdir("./"):
+    #only scrunge media files
+    if is_media(file_name): 
+        #clean out annoying eporner cruft from title
+        new_name = file_name
+
+        #remove annoying or distracting works from titles
+        new_name = clean_title(new_name)
+
+        #rename the file
+        os.rename (file_name, new_name)
