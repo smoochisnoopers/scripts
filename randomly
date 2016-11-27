@@ -1,0 +1,21 @@
+#!/usr/bin/python3.5
+
+import os
+import random
+import subprocess
+
+def is_media(file_name):
+    return file_name.endswith(".mp4")
+
+command = []
+
+for file_name in os.listdir("./"):
+    if is_media(file_name):
+        if len(command) == 0:
+            command.append(file_name)
+        else:
+            pos = random.randint(0,len(command))
+            command.insert(pos,file_name)
+
+command.insert(0,"audience")
+subprocess.run(command)
