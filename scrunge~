@@ -9,9 +9,6 @@ def extract_eporner_title(title):
 
 def extract_javahihi_title(title):
     return title.split(" - ")[2]
-
-def extract_pornhub_title(title):
-    return title.split("_")[2]
  
 def purge_words(title):
     new_title = title.replace("ommy", "ilf")
@@ -28,14 +25,11 @@ def clean_title(title):
     if new_title.find("JavHiHi") != -1:
         new_title = extract_javahihi_title(new_title)
 
-    if new_title.startswith("720P") or new_title.startswith("480P"):
-        new_title = extract_pornhub_title(new_title)
-
     new_title = purge_words(new_title)
     return new_title
 
 def is_media(title):
-    return title.endswith(".mp4")
+    return title.find(".mp4") != -1
         
 for file_name in os.listdir("./"):
     #only scrunge media files
